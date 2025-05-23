@@ -1,10 +1,11 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Copywriter Brief Generator</title>
-  <style>
+<meta charset="utf-8"/>
+<title>Copywriter Brief Generator</title>
+<style>
     body {
       font-family: Arial, sans-serif;
       padding: 30px;
@@ -32,74 +33,67 @@
   </style>
 </head>
 <body>
-  <h2>📝 Copywriter Brief Generator</h2>
+<h2>📝 Copywriter Brief Generator</h2>
+<label>🎯 Awareness Level (DARA)</label>
+<select id="awareness">
+<option value="S1 - Unaware">S1 - Unaware</option>
+<option value="S2 - Problem Aware">S2 - Problem Aware</option>
+<option value="S3 - Solution Aware">S3 - Solution Aware</option>
+<option value="S4 - Product Aware">S4 - Product Aware</option>
+<option value="S5 - Most Aware">S5 - Most Aware</option>
+</select>
+<label>🎯 Angle</label>
+<textarea id="angle" placeholder="اكتب الزاوية هنا..."></textarea>
+<label>🕐 Length (اختياري)</label>
+<select id="length">
+<option value="">— No Length —</option>
+<option value="Short (10s - 20s)">Short (10s - 20s)</option>
+<option value="Medium (20s - 35s)">Medium (20s - 35s)</option>
+<option value="Long (35s - 1min)">Long (35s - 1min)</option>
+</select>
+<label>💸 Offer</label>
+<textarea id="offer" placeholder="اكتب العرض هنا..."></textarea>
+<label>🛡️ Guarantee</label>
+<textarea id="guarantee" placeholder="اكتب تفاصيل الضمان هنا..."></textarea>
+<label>💡 Idea</label>
+<textarea id="idea" placeholder="اكتب الفكرة هنا..."></textarea>
+<label>🔗 Reference (Link or Note)</label>
+<textarea id="ref" placeholder="رابط المنتج / مثال سابق / ملاحظات..."></textarea>
+<button onclick="generateBrief()">Generate Brief</button>
+<button onclick="copyBrief()">نسخ النص</button>
+<div class="output" id="output"></div>
 
-  <label>🎯 Awareness Level (DARA)</label>
-  <select id="awareness">
-    <option value="S1 - Unaware">S1 - Unaware</option>
-    <option value="S2 - Problem Aware">S2 - Problem Aware</option>
-    <option value="S3 - Solution Aware">S3 - Solution Aware</option>
-    <option value="S4 - Product Aware">S4 - Product Aware</option>
-    <option value="S5 - Most Aware">S5 - Most Aware</option>
-  </select>
+<script>
+function generateBrief() {
+  const awareness = document.getElementById("awareness").value;
+  const angle = document.getElementById("angle").value.trim();
+  const length = document.getElementById("length").value;
+  const offer = document.getElementById("offer").value.trim();
+  const guarantee = document.getElementById("guarantee").value.trim();
+  const idea = document.getElementById("idea").value.trim();
+  const ref = document.getElementById("ref").value.trim();
 
-  <label>🎯 Angle</label>
-  <textarea id="angle" placeholder="اكتب الزاوية هنا..."></textarea>
+  let result = "📝 Copywriter Brief:\n\n";
+  result += "🎯 Awareness Level: " + awareness + "\n";
+  result += "🎯 Angle: " + (angle || "—") + "\n";
+  if (length) {
+    result += "🕐 Length: " + length + "\n";
+  }
+  result += "💸 Offer: " + (offer || "—") + "\n";
+  result += "🛡️ Guarantee: " + (guarantee || "—") + "\n";
+  result += "💡 Idea: " + (idea || "—") + "\n";
+  result += "🔗 Reference: " + (ref || "—");
 
-  <label>🕐 Length</label>
-  <select id="length">
-    <option value="Short (10s - 20s)">Short (10s - 20s)</option>
-    <option value="Medium (20s - 35s)">Medium (20s - 35s)</option>
-    <option value="Long (35s - 1min)">Long (35s - 1min)</option>
-  </select>
+  document.getElementById("output").innerText = result;
+}
 
-  <label>💸 Offer</label>
-  <textarea id="offer" placeholder="اكتب العرض هنا..."></textarea>
-
-  <label>🛡️ Guarantee</label>
-  <textarea id="guarantee" placeholder="اكتب تفاصيل الضمان هنا..."></textarea>
-
-  <label>💡 Idea</label>
-  <textarea id="idea" placeholder="اكتب الفكرة هنا..."></textarea>
-
-  
-  <label>🔗 Reference (Link or Note)</label>
-  <textarea id="ref" placeholder="رابط المنتج / مثال سابق / ملاحظات..."></textarea>
-  <button onclick="generateBrief()">Generate Brief</button>
-  
-  <button onclick="copyBrief()">نسخ النص</button>
-
-  <div class="output" id="output"></div>
-
-  <script>
-    function generateBrief() {
-      const awareness = document.getElementById("awareness").value;
-      const angle = document.getElementById("angle").value.trim();
-      const length = document.getElementById("length").value;
-      const offer = document.getElementById("offer").value.trim();
-      const guarantee = document.getElementById("guarantee").value.trim();
-      const idea = document.getElementById("idea").value.trim();
-      const ref = document.getElementById("ref").value.trim();
-
-      const result = `📝 Copywriter Brief:
-
-🎯 Awareness Level: ${awareness}
-🎯 Angle: ${angle || '—'}
-🕐 Length: ${length}
-💸 Offer: ${offer || '—'}
-🛡️ Guarantee: ${guarantee || '—'}
-💡 Idea: ${idea || '—'}\n🔗 Reference: ${ref || '—'}`;
-      document.getElementById("output").innerText = result;
-    }
-
-    function copyBrief() {
-      const text = document.getElementById("output").innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("تم نسخ النص بنجاح!");
-      }).catch(err => {
-        alert("حدث خطأ أثناء النسخ.");
-      });
-    }
-  </script>
-</body>
+function copyBrief() {
+  const text = document.getElementById("output").innerText;
+  navigator.clipboard.writeText(text).then(function() {
+    alert("تم نسخ النص بنجاح!");
+  }, function(err) {
+    alert("حدث خطأ أثناء النسخ.");
+  });
+}
+</script></body>
 </html>
